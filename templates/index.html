@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS UTAMA --- */
+        /* CSS UTAMA */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #ffffff;
@@ -19,10 +19,9 @@
             min-height: 100vh;
         }
 
-        /* Header Styles */
         .header-title {
-            color: #6a64d1; /* Warna ungu pudar sesuai gambar */
-            font-size: 24px;
+            color: #6a64d1; 
+            font-size: 26px;
             font-weight: 700;
             text-transform: uppercase;
             text-align: center;
@@ -31,130 +30,73 @@
         }
 
         .divider {
-            width: 100%;
-            max-width: 800px;
-            height: 2px;
-            background-color: #888; /* Garis abu-abu gelap */
-            margin-bottom: 50px;
+            width: 100%; max-width: 800px; height: 2px;
+            background-color: #888; margin-bottom: 50px;
         }
 
-        /* Card Container (Kotak Menu) */
+        /* CARD MENU */
         .card-menu {
-            background: white;
-            border: 1px solid #777; /* Border abu-abu tegas */
-            border-radius: 12px;
-            padding: 40px 50px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        /* Isi Menu */
-        .menu-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #444;
-            margin-bottom: 15px;
+            background: white; border: 1px solid #555;
+            border-radius: 12px; padding: 40px 50px;
+            width: 100%; max-width: 550px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .menu-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 40px 0;
-            font-size: 15px;
-            color: #333;
-            line-height: 1.8;
-            font-weight: 500;
-        }
-        
-        .menu-list li {
-            margin-left: 20px;
+            list-style: none; padding: 0; margin: 0 0 40px 20px;
+            font-size: 15px; color: #333; line-height: 1.8; font-weight: 500;
         }
 
-        /* Area Input & Tombol */
-        .action-area {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
+        .action-area { display: flex; gap: 15px; align-items: center; }
         .input-box {
-            flex: 1;
-            padding: 12px 15px;
-            border: 1px solid #777;
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-            color: #555;
+            flex: 1; padding: 12px 15px; border: 1px solid #777;
+            border-radius: 6px; font-size: 14px; outline: none; color: #333;
         }
-
-        .input-box::placeholder {
-            color: #999;
-            font-size: 14px;
-        }
-
         .btn-next {
-            background-color: #4361ee; /* Biru terang "Next" */
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 12px 40px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.2s;
+            background-color: #4361ee; color: white; border: none;
+            border-radius: 6px; padding: 12px 40px; font-weight: 600;
+            font-size: 16px; cursor: pointer; transition: 0.2s;
         }
 
-        .btn-next:hover {
-            background-color: #3651c9;
-        }
-
-        /* Helper Classes untuk layar lain (Create, Read, dll) */
-        .hidden { display: none; }
-        .text-center { text-align: center; }
-
-        /* Styling tambahan untuk tabel/form sub-menu agar rapi */
+        /* LAYAR SUB MENU */
         .sub-screen {
-            background: white;
-            border: 1px solid #777;
-            border-radius: 12px;
-            padding: 30px;
-            width: 100%;
-            max-width: 600px;
+            background: white; border: 1px solid #555;
+            border-radius: 12px; padding: 30px;
+            width: 100%; max-width: 600px;
         }
-        .form-group { margin-bottom: 15px; }
-        .form-label { display: block; margin-bottom: 5px; font-weight: 600; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
         .full-width { width: 100%; box-sizing: border-box; }
-        .btn-back { background: #fca311; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; float: right; margin-top: 20px; }
         
-        /* Input Identitas (Opsional, ditaruh diatas biar rapi) */
-        .identity-box {
-            position: absolute; top: 10px; right: 20px;
-            font-size: 12px; color: #666;
-            background: #f0f0f0; padding: 5px 10px; border-radius: 4px;
-        }
+        .btn-action { width: 100%; padding: 12px; background: #4361ee; color: white; border:none; border-radius:6px; font-weight:bold; cursor:pointer; }
+        .btn-back { background: #fca311; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; float: right; margin-top: 20px; font-weight: 600;}
+
+        .hidden { display: none; }
+        .user-id { position: absolute; top: 10px; right: 20px; font-size: 12px; color: #888; }
+        
+        /* RESULT TABLE */
+        .result-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .result-table th { text-align: left; background: #eee; padding: 10px; border-bottom: 2px solid #ddd; }
+        .result-table td { padding: 10px; border-bottom: 1px solid #eee; }
     </style>
 </head>
 <body>
 
     <div class="header-title">VLAN MANAGEMENT SYSTEM</div>
     <div class="divider"></div>
-
-    <div class="identity-box">
-        User: <input type="text" id="globalName" value="Admin" style="border:none; bg:transparent; width:50px;">
-    </div>
+    <div class="user-id">User: <input type="text" id="globalName" value="Admin" style="border:none; bg:#f5f5f5;"></div>
 
     <div id="screen-menu" class="card-menu">
-        <div class="menu-title">Menu VLAN</div>
+        <h3 style="margin-top:0; color:#444;">Menu VLAN</h3>
         <ul class="menu-list">
             <li>1. Create VLAN</li>
-            <li>2. Read VLAN</li>
+            <li>2. Read VLAN (Cari ID)</li>
             <li>3. Update VLAN</li>
             <li>4. Delete VLAN</li>
             <li>5. Show All VLANs</li>
             <li>6. Exit</li>
         </ul>
-
         <div class="action-area">
             <input type="number" id="menuInput" class="input-box" placeholder="Pilihan Anda :">
             <button class="btn-next" onclick="processMenu()">Next</button>
@@ -164,130 +106,220 @@
     <div id="screen-create" class="sub-screen hidden">
         <h3>Create VLAN</h3>
         <div class="form-group">
-            <label class="form-label">VLAN ID (2-4094)</label>
+            <label class="form-label">ID VLAN (2-4094):</label>
             <input type="number" id="createId" class="input-box full-width">
         </div>
         <div class="form-group">
-            <label class="form-label">VLAN Name</label>
+            <label class="form-label">Nama VLAN:</label>
             <input type="text" id="createName" class="input-box full-width">
         </div>
-        <button class="btn-next full-width" onclick="actionCreate()">Simpan</button>
+        <button class="btn-action" onclick="actionCreate()">Tambah</button>
         <button class="btn-back" onclick="showScreen('menu')">Kembali</button>
     </div>
 
-    <div id="screen-list" class="sub-screen hidden">
-        <h3>Daftar VLAN Aktif</h3>
-        <div id="listContainer" style="min-height: 100px; margin-top:20px;">
-            Loading...
+    <div id="screen-read" class="sub-screen hidden">
+        <h3>Read VLAN</h3>
+        <div style="background:#f9f9f9; padding:15px; border-radius:8px; border:1px dashed #ccc;">
+            <label class="form-label">Cari ID VLAN:</label>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="searchReadInput" class="input-box" placeholder="Contoh: 10">
+                <button class="btn-next" style="padding:10px 20px;" onclick="actionSearchRead()">Cari</button>
+            </div>
+        </div>
+
+        <div id="readResultArea" class="hidden">
+            <h4 style="margin-bottom:5px; margin-top:20px;">Data Ditemukan:</h4>
+            <table class="result-table">
+                <tr><th>ID VLAN</th><th>Nama</th><th>Dibuat Oleh</th></tr>
+                <tr>
+                    <td id="resId" style="color:#4361ee; font-weight:bold;">-</td>
+                    <td id="resName">-</td>
+                    <td id="resUser">-</td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn-back" onclick="showScreen('menu')">Kembali</button>
+    </div>
+
+    <div id="screen-update" class="sub-screen hidden">
+        <h3>Update VLAN</h3>
+        <div style="background:#f9f9f9; padding:15px; border-radius:8px; margin-bottom:20px;">
+            <label class="form-label">Cari ID:</label>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="searchUpdateInput" class="input-box">
+                <button class="btn-next" style="padding:10px 20px;" onclick="cariUntukUpdate()">Cari</button>
+            </div>
+        </div>
+        <div id="formUpdateArea" style="opacity:0.5; pointer-events:none;">
+            <div class="form-group">
+                <label class="form-label">Nama Baru:</label>
+                <input type="text" id="updateName" class="input-box full-width">
+                <input type="hidden" id="updateId">
+            </div>
+            <button class="btn-action" style="background:#8b5cf6;" onclick="actionUpdate()">Update</button>
         </div>
         <button class="btn-back" onclick="showScreen('menu')">Kembali</button>
     </div>
 
     <div id="screen-delete" class="sub-screen hidden">
-        <h3>Hapus VLAN</h3>
+        <h3>Delete VLAN</h3>
         <div class="form-group">
-            <label class="form-label">Masukkan ID VLAN</label>
-            <input type="text" id="deleteId" class="input-box full-width" placeholder="Contoh: 100">
+            <label class="form-label">ID VLAN:</label>
+            <input type="text" id="deleteId" class="input-box full-width">
         </div>
-        <button class="btn-next full-width" style="background:#ef4444;" onclick="actionDelete()">Hapus</button>
+        <button class="btn-action" style="background:#ef4444;" onclick="actionDelete()">Hapus</button>
+        <button class="btn-back" onclick="showScreen('menu')">Kembali</button>
+    </div>
+
+    <div id="screen-list" class="sub-screen hidden">
+        <div style="display:flex; justify-content:space-between;">
+            <h3>List All VLANs</h3>
+            <button onclick="fetchData()" style="cursor:pointer;">Refresh</button>
+        </div>
+        <div id="listContainer" style="max-height: 300px; overflow-y: auto; margin-top:10px;">Loading...</div>
         <button class="btn-back" onclick="showScreen('menu')">Kembali</button>
     </div>
 
     <script>
-        // Fungsi Pindah Halaman
-        function showScreen(screenName) {
+        // NAVIGASI
+        function showScreen(name) {
             // Sembunyikan semua layar
-            document.getElementById('screen-menu').classList.add('hidden');
-            document.getElementById('screen-create').classList.add('hidden');
-            document.getElementById('screen-list').classList.add('hidden');
-            document.getElementById('screen-delete').classList.add('hidden');
+            ['menu', 'create', 'read', 'update', 'delete', 'list'].forEach(id => {
+                document.getElementById('screen-' + id).classList.add('hidden');
+            });
+            // Tampilkan yg dipilih
+            document.getElementById('screen-' + name).classList.remove('hidden');
+
+            if(name === 'list') fetchData();
             
-            // Tampilkan yang dipilih
-            if(screenName === 'menu') document.getElementById('screen-menu').classList.remove('hidden');
-            if(screenName === 'create') document.getElementById('screen-create').classList.remove('hidden');
-            if(screenName === 'list') {
-                document.getElementById('screen-list').classList.remove('hidden');
-                fetchData(); // Ambil data saat buka list
-            }
-            if(screenName === 'delete') document.getElementById('screen-delete').classList.remove('hidden');
+            // Reset input menu
+            document.getElementById('menuInput').value = '';
+            // Reset Read result
+            document.getElementById('readResultArea').classList.add('hidden');
         }
 
-        // Logic Tombol Next di Menu Utama
         function processMenu() {
             const val = document.getElementById('menuInput').value;
-            
             if (val === '1') showScreen('create');
-            else if (val === '2') showScreen('list'); // Read single disatukan ke list biar simpel
-            else if (val === '3') alert("Fitur Update (Gunakan Create dengan ID sama untuk menimpa)");
+            else if (val === '2') showScreen('read');   // KE LAYAR KHUSUS READ
+            else if (val === '3') showScreen('update');
             else if (val === '4') showScreen('delete');
-            else if (val === '5') showScreen('list');
-            else if (val === '6') {
-                if(confirm("Keluar dari sistem?")) window.close();
-            } 
-            else alert("Pilihan tidak valid (1-6)");
-
-            // Reset input
-            document.getElementById('menuInput').value = '';
+            else if (val === '5') showScreen('list');   // KE LAYAR SHOW ALL
+            else if (val === '6') window.close();
+            else alert("Pilihan 1-6");
         }
 
-        // --- API CALLS (Koneksi ke Python) ---
-        
+        // --- API FUNCTIONS ---
+
+        // 1. CREATE
         async function actionCreate() {
             const id = document.getElementById('createId').value;
             const name = document.getElementById('createName').value;
             const user = document.getElementById('globalName').value;
-
-            if(!id || !name) return alert("Isi data lengkap!");
-
+            if(!id || !name) return alert("Isi data!");
+            
             try {
                 const res = await fetch('/api/vlans', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        vlan_id: id, vlan_name: name, student_name: user, student_nim: "0000"
-                    })
+                    body: JSON.stringify({ vlan_id: id, vlan_name: name, student_name: user, student_nim: "000" })
                 });
                 const json = await res.json();
                 alert(json.message);
                 if(json.status === 'success') showScreen('menu');
-            } catch(e) { alert("Gagal koneksi ke server"); }
+            } catch(e) { alert("Gagal koneksi"); }
         }
 
+        // 2. READ (SEARCH SINGLE)
+        async function actionSearchRead() {
+            const idCari = document.getElementById('searchReadInput').value;
+            if(!idCari) return alert("Masukkan ID!");
+
+            try {
+                // Ambil semua data, lalu filter di JS (karena API get single blm ada)
+                const res = await fetch('/api/vlans');
+                const json = await res.json();
+                
+                const found = json.data.find(v => v.vlan_id === idCari);
+
+                if(found) {
+                    document.getElementById('readResultArea').classList.remove('hidden');
+                    document.getElementById('resId').innerText = found.vlan_id;
+                    document.getElementById('resName').innerText = found.name;
+                    document.getElementById('resUser').innerText = found.student_name;
+                } else {
+                    document.getElementById('readResultArea').classList.add('hidden');
+                    alert("VLAN ID " + idCari + " tidak ditemukan!");
+                }
+            } catch(e) { alert("Gagal mencari data"); }
+        }
+
+        // 3. UPDATE
+        async function cariUntukUpdate() {
+            const idCari = document.getElementById('searchUpdateInput').value;
+            if(!idCari) return alert("Masukkan ID!");
+            try {
+                const res = await fetch('/api/vlans');
+                const json = await res.json();
+                const found = json.data.find(v => v.vlan_id === idCari);
+                if(found) {
+                    document.getElementById('formUpdateArea').style.opacity = "1";
+                    document.getElementById('formUpdateArea').style.pointerEvents = "auto";
+                    document.getElementById('updateId').value = found.vlan_id;
+                    document.getElementById('updateName').value = found.name;
+                    alert("Data ditemukan. Silakan edit.");
+                } else {
+                    alert("ID tidak ditemukan.");
+                }
+            } catch(e) {}
+        }
+
+        async function actionUpdate() {
+            const id = document.getElementById('updateId').value;
+            const name = document.getElementById('updateName').value;
+            const user = document.getElementById('globalName').value;
+            try {
+                const res = await fetch(`/api/vlans/${id}`, {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ vlan_name: name, student_name: user, student_nim: "000" })
+                });
+                const json = await res.json();
+                alert(json.message);
+                if(json.status === 'success') showScreen('menu');
+            } catch(e) { alert("Gagal Update"); }
+        }
+
+        // 4. DELETE
         async function actionDelete() {
             const id = document.getElementById('deleteId').value;
-            if(!confirm(`Yakin hapus VLAN ${id}?`)) return;
-
+            if(!confirm("Hapus VLAN "+id+"?")) return;
             try {
                 const res = await fetch(`/api/vlans/${id}`, { method: 'DELETE' });
                 const json = await res.json();
                 alert(json.message);
                 if(json.status === 'success') showScreen('menu');
-            } catch(e) { alert("Gagal koneksi ke server"); }
+            } catch(e) {}
         }
 
+        // 5. SHOW ALL
         async function fetchData() {
-            const container = document.getElementById('listContainer');
-            container.innerHTML = 'Loading data...';
+            const box = document.getElementById('listContainer');
+            box.innerHTML = 'Loading...';
             try {
                 const res = await fetch('/api/vlans');
                 const json = await res.json();
-                
-                if(json.data.length === 0) {
-                    container.innerHTML = 'Tidak ada VLAN.';
-                    return;
-                }
+                if(json.data.length === 0) { box.innerHTML = 'Data kosong.'; return; }
                 
                 let html = '<ul style="list-style:none; padding:0;">';
                 json.data.forEach(v => {
-                    html += `<li style="border-bottom:1px solid #eee; padding:10px; display:flex; justify-content:space-between;">
-                                <strong>${v.vlan_id}</strong> 
-                                <span>${v.name}</span>
-                                <span style="color:#888; font-size:12px;">${v.student_name}</span>
-                             </li>`;
+                    html += `<li style="padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between;">
+                        <b>${v.vlan_id}</b> <span>${v.name}</span> <small>${v.student_name}</small>
+                    </li>`;
                 });
                 html += '</ul>';
-                container.innerHTML = html;
-            } catch(e) { container.innerHTML = 'Error loading data'; }
+                box.innerHTML = html;
+            } catch(e) { box.innerHTML = 'Error'; }
         }
     </script>
 </body>
