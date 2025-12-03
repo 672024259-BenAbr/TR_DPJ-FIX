@@ -1,160 +1,215 @@
-// NAVIGASI
-function showScreen(name) {
-    // Sembunyikan semua layar
-    ['menu', 'create', 'read', 'update', 'delete', 'list'].forEach(id => {
-        document.getElementById('screen-' + id).classList.add('hidden');
-    });
-    // Tampilkan yg dipilih
-    document.getElementById('screen-' + name).classList.remove('hidden');
+const API_URL = '/api/vlans';
 
-    if (name === 'list') fetchData();
+
+const teamData = {
     
-    // Reset input menu
-    document.getElementById('menuInput').value = '';
-    // Reset Read result
-    document.getElementById('readResultArea').classList.add('hidden');
-
-    // Reset Update form visual
-    document.getElementById('formUpdateArea').style.opacity = "0.3";
-    document.getElementById('formUpdateArea').style.pointerEvents = "none";
-    document.getElementById('searchUpdateInput').value = "";
-    document.getElementById('updateName').value = "";
-}
-
-function processMenu() {
-    const val = document.getElementById('menuInput').value;
-    if (val === '1') showScreen('create');
-    else if (val === '2') showScreen('read');
-    else if (val === '3') showScreen('update');
-    else if (val === '4') showScreen('delete');
-    else if (val === '5') showScreen('list');
-    else if (val === '6') window.close();
-    else alert("Invalid Command. Select 1-6.");
-}
-
-// --- API FUNCTIONS (CRUD) ---
-
-// 1. CREATE
-async function actionCreate() {
-    const id = document.getElementById('createId').value;
-    const name = document.getElementById('createName').value;
-    const user = document.getElementById('globalName').value;
-    if (!id || !name) return alert("Error: Missing Parameters!");
+    "Brillian": { nim: "672024246", tugas: "Frontend UI" },
+    "Brillian Kusuma": { nim: "672024246", tugas: "Frontend UI" },
     
-    try {
-        const res = await fetch('/api/vlans', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ vlan_id: id, vlan_name: name, student_name: user, student_nim: "000" })
-        });
-        const json = await res.json();
-        alert("System: " + json.message);
-        if (json.status === 'success') showScreen('menu');
-    } catch (e) { 
-        console.log(e);
-        alert("Connection Failed. Check Console."); 
+    "Talita":   { nim: "672024251", tugas: "Frontend UI" },
+    "Talita Dian": { nim: "672024251", tugas: "Frontend UI" },
+    
+    "Khulud":   { nim: "672024253", tugas: "Frontend UI, flow" },
+    "Khulud Zuliyani": { nim: "672024253", tugas: "frontend UI, flow" },
+    
+    "Berlian":  { nim: "672024254", tugas: "Backend" },
+    "Berlian Rezin": { nim: "672024254", tugas: "Backend" },
+    
+    "Benri":    { nim: "672024259", tugas: "Backend" },
+    "Benri Abrian": { nim: "672024259", tugas: "Backend" },
+
+    "Admin":    { nim: "-", tugas: "-" }
+};
+
+function showScreen(screenName) {
+    const screens = document.querySelectorAll('.sub-screen, .card-menu');
+    screens.forEach(s => s.classList.add('hidden'));
+
+    if (screenName === 'menu') {
+        document.getElementById('screen-menu').classList.remove('hidden');
+        document.getElementById('menuInput').value = '';
+    } else {
+        document.getElementById('screen-' + screenName).classList.remove('hidden');
     }
 }
 
-// 2. READ (SEARCH SINGLE)
-async function actionSearchRead() {
-    const idCari = document.getElementById('searchReadInput').value;
-    if (!idCari) return alert("Input ID required!");
+function processMenu() {
+    const choice = document.getElementById('menuInput').value;
+    const map = {
+        '1': 'create', '2': 'read', '3': 'update', 
+        '4': 'delete', '5': 'list', '6': 'exit'
+    };
 
-    try {
-        const res = await fetch('/api/vlans');
-        const json = await res.json();
-        
-        // Filter client-side
-        const found = json.data.find(v => v.vlan_id == idCari);
+    if(choice === '6') {
+        alert("SYSTEM TERMINATED.");
+        window.location.reload();
+    } else if (map[choice]) {
+        showScreen(map[choice]);
+        if(map[choice] === 'list') fetchData();
+    } else {
+        alert("ACCESS DENIED: Select 1-6");
+    }
+}
 
-        if (found) {
-            document.getElementById('readResultArea').classList.remove('hidden');
+function actionCreate() {
+    const id = document.getElementById('createId').value;
+    const name = document.getElementById('createName').value;
+    
+    const inputUser = document.getElementById('globalName').value;
+    const user = inputUser && inputUser.trim() !== "" ? inputUser : "Admin";
+
+    if(!id || !name) return alert("ERROR: Missing ID or LABEL!");
+
+    fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            vlan_id: id, 
+            vlan_name: name,
+            student_name: user,   
+            student_nim: "00000"  
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        if(data.status === 'success') {
+            document.getElementById('createId').value = '';
+            document.getElementById('createName').value = '';
+            showScreen('menu');
+        }
+    })
+    .catch(() => alert("CONNECTION FAILURE"));
+}
+
+function actionSearchRead() {
+    const id = document.getElementById('searchReadInput').value;
+    const resultArea = document.getElementById('readResultArea');
+
+    if(!id) return alert("INPUT REQUIRED");
+
+    fetch(API_URL)
+    .then(res => res.json())
+    .then(json => {
+        const found = json.data.find(v => v.vlan_id == id);
+        if(found) {
+            resultArea.classList.remove('hidden');
             document.getElementById('resId').innerText = found.vlan_id;
             document.getElementById('resName').innerText = found.name;
             document.getElementById('resUser').innerText = found.student_name;
         } else {
-            document.getElementById('readResultArea').classList.add('hidden');
-            alert("VLAN ID " + idCari + " Not Found in Database.");
+            alert("TARGET NOT FOUND");
+            resultArea.classList.add('hidden');
         }
-    } catch (e) { alert("Data Fetch Error"); }
+    });
 }
 
-// 3. UPDATE - Search before update
-async function cariUntukUpdate() {
-    const idCari = document.getElementById('searchUpdateInput').value;
-    if (!idCari) return alert("Input ID required!");
-    try {
-        const res = await fetch('/api/vlans');
-        const json = await res.json();
-        const found = json.data.find(v => v.vlan_id == idCari);
-        if (found) {
-            const formArea = document.getElementById('formUpdateArea');
+function cariUntukUpdate() {
+    const id = document.getElementById('searchUpdateInput').value;
+    const formArea = document.getElementById('formUpdateArea');
+
+    if(!id) return alert("INPUT TARGET ID");
+
+    fetch(API_URL)
+    .then(res => res.json())
+    .then(json => {
+        const found = json.data.find(v => v.vlan_id == id);
+        if(found) {
             formArea.style.opacity = "1";
-            formArea.style.pointerEvents = "auto";
-            
-            document.getElementById('updateId').value = found.vlan_id;
+            formArea.style.pointerEvents = "all";
             document.getElementById('updateName').value = found.name;
-            document.getElementById('updateName').focus();
+            document.getElementById('updateId').value = found.vlan_id; 
         } else {
-            alert("ID Not Found.");
+            alert("TARGET NOT FOUND");
+            formArea.style.opacity = "0.3";
+            formArea.style.pointerEvents = "none";
         }
-    } catch (e) { alert("Connection Error"); }
+    });
 }
 
-async function actionUpdate() {
+function actionUpdate() {
     const id = document.getElementById('updateId').value;
     const name = document.getElementById('updateName').value;
-    const user = document.getElementById('globalName').value;
-    try {
-        const res = await fetch(`/api/vlans/${id}`, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ vlan_name: name, student_name: user, student_nim: "000" })
-        });
-        const json = await res.json();
-        alert(json.message);
-        if (json.status === 'success') showScreen('menu');
-    } catch (e) { alert("Update Failed"); }
+    const inputUser = document.getElementById('globalName').value;
+    const user = inputUser && inputUser.trim() !== "" ? inputUser : "Admin";
+
+    fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            vlan_name: name, student_name: user, student_nim: "00000"
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        if(data.status === 'success') showScreen('menu');
+    });
 }
 
-// 4. DELETE
-async function actionDelete() {
+function actionDelete() {
     const id = document.getElementById('deleteId').value;
-    if (!confirm("WARNING: Are you sure you want to delete VLAN " + id + "?")) return;
-    try {
-        const res = await fetch(`/api/vlans/${id}`, { method: 'DELETE' });
-        const json = await res.json();
-        alert(json.message);
-        if (json.status === 'success') showScreen('menu');
-    } catch (e) { alert("Delete Failed"); }
+    if(!id) return alert("INPUT REQUIRED");
+    if(!confirm(`Delete VLAN ${id}?`)) return;
+
+    fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        if(data.status === 'success') {
+            document.getElementById('deleteId').value = '';
+            showScreen('menu');
+        }
+    });
 }
 
-// 5. SHOW ALL
-async function fetchData() {
-    const box = document.getElementById('listContainer');
-    box.innerHTML = '<div style="text-align:center; padding:20px; color:#0ea5e9;">Scanning Network...</div>';
-    try {
-        const res = await fetch('/api/vlans');
-        const json = await res.json();
-        if (!json.data || json.data.length === 0) { 
-            box.innerHTML = '<div style="text-align:center; color:#64748b; padding:20px;">No Data Available.</div>'; 
-            return; 
+function fetchData() {
+    const container = document.getElementById('listContainer');
+    container.innerHTML = '<div style="text-align:center; color:#94a3b8;">Scanning Matrix...</div>';
+
+    fetch(API_URL)
+    .then(res => res.json())
+    .then(json => {
+        container.innerHTML = ''; 
+        if(!json.data || json.data.length === 0) {
+            container.innerHTML = '<div style="text-align:center;">No Active VLANs.</div>';
+            return;
         }
+
+        let html = '<table class="result-table" style="width:100%; text-align:left;">';
+        html += `
+        <tr style="border-bottom:1px solid #444; color:var(--primary);">
+            <th>ID</th>
+            <th>VLAN NAME</th>
+            <th>MEMBER NAME</th>
+            <th>JOBDESK</th>
+        </tr>`;
         
-        let html = '';
-        json.data.forEach(v => {
+        json.data.forEach((vlan) => {
+            
+            let creatorName = vlan.student_name; 
+            
+            let info = teamData[creatorName] || { nim: "-", tugas: "Guest / External" };
+
             html += `
-            <div class="list-item">
-                <div>
-                    <span class="badge-id">ID: ${v.vlan_id}</span>
-                    <span style="margin-left:10px; font-weight:600; color:#f1f5f9;">${v.name}</span>
-                </div>
-                <small style="color:#94a3b8;">${v.student_name}</small>
-            </div>`;
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:10px; color:var(--accent); font-weight:bold;">${vlan.vlan_id}</td>
+                <td style="padding:10px;">${vlan.name}</td>
+                
+                <td style="padding:10px;">
+                    <span style="color:#e2e8f0; font-weight:bold;">${creatorName}</span><br>
+                    <span style="font-size:11px; color:#64748b;">${info.nim}</span>
+                </td> 
+                
+                <td style="padding:10px;">
+                    <span class="task-badge">${info.tugas}</span>
+                </td>
+            </tr>`;
         });
-        box.innerHTML = html;
-    } catch (e) { 
-        box.innerHTML = '<div style="text-align:center; color:#ef4444; padding:20px;">Connection Lost.</div>'; 
-    }
+        html += '</table>';
+        container.innerHTML = html;
+    })
+    .catch(() => {
+        container.innerHTML = '<div style="text-align:center; color:#ef4444;">LINK FAILED</div>';
+    });
 }

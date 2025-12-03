@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VLAN Management System | Future UI</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/styles.css"> 
 </head>
 <body>
 
@@ -23,7 +22,7 @@
             <li>2. Search VLAN (Read)</li>
             <li>3. Update Configuration</li>
             <li>4. Delete VLAN</li>
-            <li>5. Show Network List</li>
+            <li>5. Show Network List (Jobdesk)</li>
             <li>6. Terminate</li>
         </ul>
         <div class="action-area">
@@ -79,6 +78,7 @@
                 <button class="btn-next" style="padding:10px 30px;" onclick="cariUntukUpdate()">LOCATE</button>
             </div>
         </div>
+        
         <div id="formUpdateArea" style="opacity:0.3; pointer-events:none; transition:0.3s;">
             <div class="form-group">
                 <label class="form-label">NEW VLAN LABEL</label>
@@ -100,16 +100,18 @@
         <button class="btn-back" onclick="showScreen('menu')">BACK</button>
     </div>
 
-    <div id="screen-list" class="sub-screen hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:15px; margin-bottom:15px;">
-            <h3 style="margin:0; border:none; padding:0;">NETWORK MATRIX</h3>
-            <button onclick="fetchData()" style="padding:5px 15px; font-size:12px; background:rgba(255,255,255,0.1);">REFRESH</button>
+    <div id="screen-list" class="sub-screen hidden" style="max-width: 700px;"> <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:15px; margin-bottom:15px;">
+            <h3 style="margin:0; border:none; padding:0;">NETWORK TEAM MATRIX</h3>
+            <button onclick="fetchData()" style="padding:5px 15px; font-size:12px; background:rgba(255,255,255,0.1); color:white; border:none; cursor:pointer;">REFRESH</button>
         </div>
-        <div id="listContainer" style="max-height: 350px; overflow-y: auto; padding-right:5px;">
+        
+        <div id="listContainer" style="max-height: 400px; overflow-y: auto; padding-right:5px;">
             <div style="text-align:center; color:var(--text-muted); padding:20px;">Waiting for data stream...</div>
         </div>
+        
         <button class="btn-back" onclick="showScreen('menu')">BACK</button>
     </div>
 
     <script src="/static/script.js"></script>
+</body>
 </html>

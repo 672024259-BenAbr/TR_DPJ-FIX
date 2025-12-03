@@ -18,7 +18,6 @@ class NetworkDevice:
             "username": "admin",
             "password": "Admin_1234!",
             "port": 22,
-            # Timeout tinggi karena koneksi real internet bisa lambat
             "timeout": 60,           
             "global_delay_factor": 2 
         }
